@@ -7,6 +7,8 @@ import {
   ErrorMessage,
   ButtonSubmit,
 } from './ContactForm.styled';
+import { FC } from 'react';
+import { ContactFormProps } from 'constants/types';
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
@@ -22,14 +24,14 @@ const ContactSchema = Yup.object().shape({
     .required('Required'),
 });
 
-export const ContactForm = ({ onSubmitForm }) => {
+export const ContactForm: FC<ContactFormProps> = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={ContactSchema}
       onSubmit={(values, actions) => {
         const { name, number } = values;
-        onSubmitForm(name, number);
+        onSubmit(name, number);
         actions.resetForm();
       }}
     >

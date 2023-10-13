@@ -1,12 +1,7 @@
 import { ContactItem } from 'components/contactItem/ContactItem';
 import { List } from './ContactList.styled';
 import { FC } from 'react';
-import { IContact } from 'components/app/App';
-
-interface IListProps {
-  contacts: IContact[];
-  onDelete: (deleteId: string) => void;
-}
+import { IListProps } from 'constants/types';
 
 export const ContactList: FC<IListProps> = ({ contacts, onDelete }) => {
   return (

@@ -1,6 +1,8 @@
 import { Container } from 'components/layout/Layout.styled';
+import { LayoutProps } from 'constants/types';
+import { FC } from 'react';
 
-export const Layout = ({ children }) => {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <Container>
       <header></header>

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
-import { GlobalStyle } from 'components/constants/GlobalStyle';
+import { GlobalStyle } from 'constants/GlobalStyle';
 import { Layout } from 'components/layout/Layout';
 import { ContactForm } from 'components/contactForm/ContactForm';
 import { ContactList } from 'components/contactList/ContactList';
@@ -23,7 +23,7 @@ const getInitialContacts = () => {
 };
 export const App = () => {
     const [contacts, setContacts] = useState(getInitialContacts);
-    const [filter, setFilter] = useState('');
+    const [filterValue, setFilterValue] = useState('');
     useEffect(() => {
         localStorage.setItem(LS_KEY, JSON.stringify(contacts));
     }, [contacts]);
@@ -44,13 +44,13 @@ export const App = () => {
         setContacts(prevState => prevState.filter(contact => contact.id !== deleteId));
     };
     const changeFilter = (e) => {
-        setFilter(e.currentTarget.value);
+        setFilterValue(e.currentTarget.value);
     };
     const getFiltredContacts = () => {
-        const normalizedFilter = filter.toLowerCase();
+        const normalizedFilter = filterValue.toLowerCase();
         return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
     };
     const filtredContacts = getFiltredContacts();
-    return (_jsx(Layout, { children: _jsxs(Phonebook, { children: [_jsx(MainTitle, { children: "Phonebook" }), _jsx(ContactForm, { onSubmitForm: addContact }), _jsx(SecondTitle, { children: "Contacts" }), _jsx(Filter, { value: filter, onChange: changeFilter }), contacts.length <= 0 ? (_jsx(Notification, { message: 'Phonebook is empty!' })) : (_jsx(ContactList, { contacts: filtredContacts, onDelete: deleteContact })), _jsx(GlobalStyle, {})] }) }));
+    return (_jsx(Layout, { children: _jsxs(Phonebook, { children: [_jsx(MainTitle, { children: "Phonebook" }), _jsx(ContactForm, { onSubmit: addContact }), _jsx(SecondTitle, { children: "Contacts" }), _jsx(Filter, { filterValue: filterValue, onChange: changeFilter }), contacts.length <= 0 ? (_jsx(Notification, { message: 'Phonebook is empty!' })) : (_jsx(ContactList, { contacts: filtredContacts, onDelete: deleteContact })), _jsx(GlobalStyle, {})] }) }));
 };
 //# sourceMappingURL=App.js.map

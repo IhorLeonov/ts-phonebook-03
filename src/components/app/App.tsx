@@ -1,22 +1,17 @@
 import { nanoid } from 'nanoid';
-import { useState, useEffect } from 'react';
-import { GlobalStyle } from 'components/constants/GlobalStyle';
+import { useState, useEffect, ChangeEvent } from 'react';
+import { GlobalStyle } from 'constants/GlobalStyle';
 import { Layout } from 'components/layout/Layout';
 import { ContactForm } from 'components/contactForm/ContactForm';
 import { ContactList } from 'components/contactList/ContactList';
 import { Filter } from 'components/filter/Filter';
 import { MainTitle, Phonebook, SecondTitle } from 'components/app/App.styled';
 import { Notification } from 'components/notification/Notification';
-
-export interface IContact {
-  id: string;
-  name: string;
-  number: string;
-}
+import { ContactProps } from 'constants/types';
 
 const LS_KEY = 'contacts-from-state';
 
-const getInitialContacts = (): IContact[] => {
+const getInitialContacts = (): ContactProps[] => {
   const savedContacts = localStorage.getItem(LS_KEY);
   if (savedContacts !== null) {
     return JSON.parse(savedContacts);
@@ -31,8 +26,8 @@ const getInitialContacts = (): IContact[] => {
 };
 
 export const App = () => {
-  const [contacts, setContacts] = useState<IContact[]>(getInitialContacts);
-  const [filter, setFilter] = useState<string>('');
+  const [contacts, setContacts] = useState<ContactProps[]>(getInitialContacts);
+  const [filterValue, setFilterValue] = useState<string>('');
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(contacts));
@@ -62,12 +57,12 @@ export const App = () => {
     );
   };
 
-  const changeFilter = (e: React.FormEvent<HTMLInputElement>) => {
-    setFilter(e.currentTarget.value);
+  const changeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterValue(e.currentTarget.value);
   };
 
-  const getFiltredContacts = (): IContact[] => {
-    const normalizedFilter = filter.toLowerCase();
+  const getFiltredContacts = (): ContactProps[] => {
+    const normalizedFilter = filterValue.toLowerCase();
 
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
@@ -80,15 +75,14 @@ export const App = () => {
     <Layout>
       <Phonebook>
         <MainTitle>Phonebook</MainTitle>
-        <ContactForm onSubmitForm={addContact}></ContactForm>
+        <ContactForm onSubmit={addContact}></ContactForm>
         <SecondTitle>Contacts</SecondTitle>
-        <Filter value={filter} onChange={changeFilter} />
+        <Filter filterValue={filterValue} onChange={changeFilter} />
         {contacts.length <= 0 ? (
           <Notification message={'Phonebook is empty!'} />
         ) : (
           <ContactList contacts={filtredContacts} onDelete={deleteContact} />
         )}
-
         <GlobalStyle />
       </Phonebook>
     </Layout>

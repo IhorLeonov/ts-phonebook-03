@@ -13,10 +13,10 @@ const ContactSchema = Yup.object().shape({
         .matches(phoneRegExp, 'Phone number is not valid')
         .required('Required'),
 });
-export const ContactForm = ({ onSubmitForm }) => {
+export const ContactForm = ({ onSubmit }) => {
     return (_jsx(Formik, { initialValues: { name: '', number: '' }, validationSchema: ContactSchema, onSubmit: (values, actions) => {
             const { name, number } = values;
-            onSubmitForm(name, number);
+            onSubmit(name, number);
             actions.resetForm();
         }, children: _jsxs(Form, { children: [_jsxs(FormLabel, { children: ["Name", _jsx(Field, { type: "text", name: "name", title: "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan" }), _jsx(ErrorMessage, { name: "name", component: "span" })] }), _jsxs(FormLabel, { children: ["Number", _jsx(Field, { type: "tel", name: "number", title: "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +" }), _jsx(ErrorMessage, { name: "number", component: "span" })] }), _jsx(ButtonSubmit, { type: "submit", children: "Add contact" })] }) }));
 };

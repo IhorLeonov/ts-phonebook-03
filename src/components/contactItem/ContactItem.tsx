@@ -1,13 +1,8 @@
 import { ButtonDelete, Item } from './ContactItem.styled';
 import { FC } from 'react';
-import { IContact } from 'components/app/App';
+import { ItemProps } from 'constants/types';
 
-interface IItemProps {
-  contact: IContact;
-  onDelete: (deleteId: string) => void;
-}
-
-export const ContactItem: FC<IItemProps> = ({ contact, onDelete }) => {
+export const ContactItem: FC<ItemProps> = ({ contact, onDelete }) => {
   const { name, number, id } = contact;
   return (
     <Item>
