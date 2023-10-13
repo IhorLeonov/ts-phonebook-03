@@ -1,8 +1,8 @@
 {
-  "name": "ts-phonebook-03",
+  "name": "ts-practice-phonebook-04",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://IhorLeonov.github.io/ts-phonebook-03/",
+  "homepage": "https://IhorLeonov.github.io/ts-practice-phonebook-04/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
