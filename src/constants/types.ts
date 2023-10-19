@@ -6,7 +6,7 @@ export interface ContactProps {
   number: string;
 }
 
-export interface IListProps {
+export interface ListProps {
   contacts: ContactProps[];
   onDelete: (deleteId: string) => void;
 }
